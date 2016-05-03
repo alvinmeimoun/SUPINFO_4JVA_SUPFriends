@@ -1,0 +1,26 @@
+#Netbeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
+private.properties
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/SupBartering/SupBartering-war/nbproject/private/
+/SupBartering/SupBartering-ejb/nbproject/private/
+/4JVA_SupFitness/nbproject/private/
+/4JVA_SupFitness/4JVA_SupFitness-war/nbproject/private/
+/4JVA_SupFitness/4JVA_SupFitness-ejb/nbproject/private/
+
+#Git Merge Temporary Files
+*.orig
+*.remote
