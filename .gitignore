@@ -24,3 +24,5 @@ hs_err_pid*
 #Git Merge Temporary Files
 *.orig
 *.remote
+/4JVA_SUPFriends/nbproject/private/
+/4JVA_SUPFriends/4JVA_SUPFriends-war/nbproject/private/
