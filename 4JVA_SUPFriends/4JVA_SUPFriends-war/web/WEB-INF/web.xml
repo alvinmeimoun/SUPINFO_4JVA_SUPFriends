@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	 version="3.1">
+    
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Servlets -->
+    <!-- Logout -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.supinfo.supfriends.web.servlet.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Filters -->
+    <!-- Protector Filter -->
+    <filter>
+        <filter-name>ProtectorFilter</filter-name>
+        <filter-class>com.supinfo.supfriends.web.filter.ProtectorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+    </filter-mapping>
+    <!-- AuthManager Filter -->
+    <filter>
+        <filter-name>AuthStatusFilter</filter-name>
+        <filter-class>com.supinfo.supfriens.web.filter.AuthStatusFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthStatusFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Rest Protector Filter -->
+    <filter>
+        <filter-name>RestProtectorFilter</filter-name>
+        <filter-class>com.supinfo.supfriends.web.filter.RestProtectorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RestProtectorFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- Config -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
