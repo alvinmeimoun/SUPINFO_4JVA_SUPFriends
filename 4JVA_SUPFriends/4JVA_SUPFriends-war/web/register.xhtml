@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="Templates/authenticated.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="Register"/>
+    </ui:define>
+    
+    <ui:define name="content">
+        <h:form>
+            <h:outputLabel for="firstname" value="Firstname :"/>
+            <h:inputText id="firstname" value="#{userBusiness.firstname}" />
+            <h:outputLabel for="lastname" value="Lastname :"/>
+            <h:inputText id="lastname" value="#{userBusiness.lastname}" />
+            <h:outputLabel for="email" value="Email :"/>
+            <h:inputText id="email" value="#{userBusiness.email}" />
+            <h:outputLabel for="phonenumber" value="Phone Number :"/>
+            <h:inputText id="phonenumber" value="#{userBusiness.phonenumber}" />
+            <h:outputLabel for="username" value="Username :"/>
+            <h:inputText id="username" value="#{userBusiness.username}" />
+            <h:outputLabel for="password" value="Password :"/>
+            <h:inputSecret id="password" value="#{userBusiness.password}" />
+
+
+            <h:commandButton value="Register" action="#{userBusiness.register()}" />
+        </h:form>
+
+    </ui:define>
+</ui:composition>

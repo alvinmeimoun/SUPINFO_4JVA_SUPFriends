@@ -5,53 +5,26 @@
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	 version="3.1">
     
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
-    
-    <!-- Servlets -->
-    <!-- Logout -->
+     <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/faces-config.xml</param-value>
+    </context-param>
     <servlet>
-        <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>com.supinfo.supfriends.web.servlet.LogoutServlet</servlet-class>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
-    
-    <!-- Filters -->
-    <!-- Protector Filter -->
-    <filter>
-        <filter-name>ProtectorFilter</filter-name>
-        <filter-class>com.supinfo.supfriends.web.filter.ProtectorFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-    </filter-mapping>
-    <!-- AuthManager Filter -->
-    <filter>
-        <filter-name>AuthStatusFilter</filter-name>
-        <filter-class>com.supinfo.supfriens.web.filter.AuthStatusFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthStatusFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <!-- Rest Protector Filter -->
-    <filter>
-        <filter-name>RestProtectorFilter</filter-name>
-        <filter-class>com.supinfo.supfriends.web.filter.RestProtectorFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>RestProtectorFilter</filter-name>
-        <url-pattern>/api/*</url-pattern>
-    </filter-mapping>
-    
-    <!-- Config -->
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/login.xhtml</welcome-file>
+    </welcome-file-list>
+
 </web-app>

@@ -3,8 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/alvin/Documents/SUPINFO/Cours/4JVA%20-%20Java%20EE%20-%20Enterprise%20programming/Projet/4JVA_SUPFriends/4JVA_SUPFriends/4JVA_SUPFriends-ejb/src/java/com/supinfo/supfriends/ejb/entity/UserEntity.java</file>
-            <file>file:/Users/alvin/Documents/SUPINFO/Cours/4JVA%20-%20Java%20EE%20-%20Enterprise%20programming/Projet/4JVA_SUPFriends/4JVA_SUPFriends/4JVA_SUPFriends-ejb/src/java/com/supinfo/supfriends/ejb/entity/GroupEntity.java</file>
+            <file>file:/D:/Projets/4JVA_Supfriends/4JVA_SUPFriends/4JVA_SUPFriends-ejb/src/java/com/supinfo/supfriends/ejb/business/UserBusiness.java</file>
         </group>
     </open-files>
 </project-private>

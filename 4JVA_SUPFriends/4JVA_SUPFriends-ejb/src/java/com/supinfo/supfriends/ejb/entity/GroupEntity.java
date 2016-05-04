@@ -5,23 +5,32 @@
  */
 package com.supinfo.supfriends.ejb.entity;
 
+import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "GROUP")
-public class GroupEntity {
+public class GroupEntity implements Serializable {
     
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
+    private List<UserEntity> listMembers;
+    private Long ownerId;
+    
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -39,5 +48,37 @@ public class GroupEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * @return the ListMembers
+     */
+    @ManyToMany(mappedBy="groups")
+    public List<UserEntity> getListMembers() {
+        return listMembers;
+    }
+
+    /**
+     * @param ListMembers the ListMembers to set
+     */
+    public void setListMembers(List<UserEntity> ListMembers) {
+        this.listMembers = ListMembers;
+    }
+
+    /**
+     * @return the ownerId
+     */
+    @NotNull
+    @Column(name = "OWNERID", nullable=false)
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    /**
+     * @param ownerId the ownerId to set
+     */
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+   
     
 }
