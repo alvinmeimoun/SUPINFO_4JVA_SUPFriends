@@ -30,7 +30,8 @@ public class GroupEntity implements Serializable {
     
     
     @Id
-    @GeneratedValue
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

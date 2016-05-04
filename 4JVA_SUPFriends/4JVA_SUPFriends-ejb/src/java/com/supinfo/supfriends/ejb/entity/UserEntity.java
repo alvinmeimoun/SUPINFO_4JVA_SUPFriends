@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,30 +26,31 @@ public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
  
-    @Id
-    @GeneratedValue
+   
     private Long id;
-    @Column(name = "FIRSTNAME", nullable=false)
+
     private String firstName;
-    @Column(name = "LASTNAME", nullable=false)
+   
     private String lastName;
-    @Column(name = "EMAIL", nullable=false)
+ 
     private String email;
-    @Column(name = "USERNAME", nullable=false, unique = true)
+
     private String userName;
-    @Column(name = "PASSWORD", nullable=false)
+   
     private String password;
-    @Column(name = "PHONENUMBER", nullable=false)
-    private String phoneNumber;
     
-    @ManyToMany(mappedBy="listMembers")
+    private String phoneNumber;
+
     private List<GroupEntity> groups;
     
-    @Column(name = "LATITUDE", nullable=true)
+
     private Double latitude;
-    @Column(name = "LONGITUDE", nullable=true)
+
     private Double longitude;
 
+     @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -57,6 +60,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
+    @Column(name = "FIRSTNAME", nullable=false)
     public String getFirstName() {
         return firstName;
     }
@@ -66,6 +70,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
+    @Column(name = "LASTNAME", nullable=false)
     public String getLastName() {
         return lastName;
     }
@@ -75,7 +80,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
-    @Email
+    @Column(name = "EMAIL", nullable=false)
     public String getEmail() {
         return email;
     }
@@ -85,6 +90,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
+    @Column(name = "USERNAME", nullable=false, unique = true)
     public String getUserName() {
         return userName;
     }
@@ -92,7 +98,7 @@ public class UserEntity implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-     @NotNull
+    @Column(name = "LATITUDE", nullable=true)
     public Double getLatitude() {
         return latitude;
     }
@@ -100,8 +106,7 @@ public class UserEntity implements Serializable {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
-    
-    @NotNull
+    @Column(name = "LONGITUDE", nullable=true)
     public Double getLongitude() {
         return longitude;
     }
@@ -113,6 +118,7 @@ public class UserEntity implements Serializable {
     
 
     @NotNull
+    @Column(name = "PASSWORD", nullable=false)
     public String getPassword() {
         return password;
     }
@@ -126,7 +132,7 @@ public class UserEntity implements Serializable {
      * @return the phoneNumber
      */
     @NotNull
-    @Size(max = 10)
+    @Column(name = "PHONENUMBER", nullable=false)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -141,6 +147,11 @@ public class UserEntity implements Serializable {
     /**
      * @return the groups
      */
+    @ManyToMany
+            @JoinTable(
+      name="GROUP_MEMBERS",
+      joinColumns=@JoinColumn(name="GroupId", referencedColumnName="ID"),
+      inverseJoinColumns=@JoinColumn(name="UserId", referencedColumnName="ID"))
     public List<GroupEntity> getGroups() {
         return groups;
     }

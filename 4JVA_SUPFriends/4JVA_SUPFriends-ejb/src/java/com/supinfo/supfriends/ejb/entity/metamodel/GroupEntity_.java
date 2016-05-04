@@ -8,11 +8,13 @@ package com.supinfo.supfriends.ejb.entity.metamodel;
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import java.util.List;
 import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
 
 /**
  *
  * @author Antonin
  */
+@StaticMetamodel(GroupEntity.class)
 public class GroupEntity_ {
  
     public static volatile SingularAttribute<GroupEntity, Long> id;

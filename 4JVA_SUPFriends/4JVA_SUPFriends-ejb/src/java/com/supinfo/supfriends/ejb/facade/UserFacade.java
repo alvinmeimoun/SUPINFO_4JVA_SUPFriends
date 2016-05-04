@@ -36,6 +36,7 @@ public class UserFacade {
     /**
      * Insert un User dans la base de données
      * @param userEntity UserEntity à insérer
+     * @return 
      */
     public Long create(UserEntity userEntity) {
         try{
