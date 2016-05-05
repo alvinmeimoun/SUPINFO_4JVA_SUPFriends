@@ -23,8 +23,18 @@
             30
         </session-timeout>
     </session-config>
+    
+    <servlet>
+        <servlet-name>WebServicesServlet</servlet-name>
+        <servlet-class>com.supinfo.supfriends.web.api.servlet.WebServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebServicesServlet</servlet-name>
+        <url-pattern>/api</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
-        <welcome-file>faces/login.xhtml</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

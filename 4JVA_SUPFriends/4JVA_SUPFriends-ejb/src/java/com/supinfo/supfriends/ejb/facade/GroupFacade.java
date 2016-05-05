@@ -8,7 +8,10 @@ package com.supinfo.supfriends.ejb.facade;
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import java.util.List;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -24,6 +27,7 @@ import javax.persistence.criteria.Root;
  * @author Antonin
  */
 @Stateless
+@LocalBean
 public class GroupFacade {
     private EntityManager em;
 

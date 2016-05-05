@@ -5,10 +5,13 @@
  */
 package com.supinfo.supfriends.ejb.facade;
 
-import com.supinfo.supfriends.ejb.entity.metamodel.UserEntity_;
+import com.supinfo.supfriends.ejb.entity.UserEntity_;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import java.util.List;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -24,6 +27,7 @@ import javax.persistence.criteria.Root;
  * Méthode d'accès à la BDD pour l'entité User
  */
 @Stateless
+@LocalBean
 public class UserFacade {
     private EntityManager em;
 

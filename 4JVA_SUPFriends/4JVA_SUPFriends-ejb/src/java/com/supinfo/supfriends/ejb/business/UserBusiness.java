@@ -18,6 +18,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -28,10 +29,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SessionScoped
 public class UserBusiness {
     
-    @EJB
-    private UserFacade userFacade;
-    @EJB
-    private GroupFacade groupFacade;
+    private static UserFacade userFacade;
+    private static GroupFacade groupFacade;
+    
     @NotEmpty
     private String username;
     @NotEmpty
@@ -47,8 +47,8 @@ public class UserBusiness {
     
     private UserEntity loggedUser;
     public UserBusiness(){
-     this.userFacade = new UserFacade(); 
-     this.groupFacade = new GroupFacade();
+        if(userFacade == null) userFacade = new UserFacade();
+        if(groupFacade == null) groupFacade = new GroupFacade();
     }
     
     /**
