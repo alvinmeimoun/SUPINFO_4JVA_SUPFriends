@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "GROUP")
+@Table(name = "GROUPE")
 public class GroupEntity implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -57,7 +57,7 @@ public class GroupEntity implements Serializable {
     
     @ManyToMany
     @JoinTable(
-    name="GROUP_MEMBERS",
+    name="GROUPE_MEMBERS",
     joinColumns=@JoinColumn(name="GroupId", referencedColumnName="ID"),
     inverseJoinColumns=@JoinColumn(name="UserId", referencedColumnName="ID"))
     public List<UserEntity> getListMembers() {
