@@ -7,7 +7,6 @@ package com.supinfo.supfriends.ejb.facade;
 
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
-import com.supinfo.supfriends.ejb.entity.metamodel.UserEntity_;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -26,19 +25,20 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 public class GroupFacade {
-    @PersistenceContext(unitName = "4JVA_SUPFriends-ejbPU")
     private EntityManager em;
 
     
     public GroupFacade()
     {
-          EntityManagerFactory emf = Persistence.createEntityManagerFactory("4JVA_SUPFriends-ejbPU");
+          EntityManagerFactory emf = Persistence.createEntityManagerFactory("supfriends-ejbPU");
           em = emf.createEntityManager();
     }
    
     public void create(GroupEntity groupEntity) {
         try{
+        em.getTransaction().begin();
         em.persist(groupEntity);
+        em.getTransaction().commit();
         }
         catch(Exception e)
         {

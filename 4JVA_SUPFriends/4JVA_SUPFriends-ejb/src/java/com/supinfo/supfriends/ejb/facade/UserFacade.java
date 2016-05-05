@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
@@ -24,13 +25,12 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 public class UserFacade {
-    @PersistenceContext(unitName = "4JVA_SUPFriends-ejbPU")
     private EntityManager em;
 
     
     public UserFacade()
     {
-          EntityManagerFactory emf = Persistence.createEntityManagerFactory("4JVA_SUPFriends-ejbPU");
+          EntityManagerFactory emf = Persistence.createEntityManagerFactory("supfriends-ejbPU");
           em = emf.createEntityManager();
     }
     /**
@@ -40,8 +40,10 @@ public class UserFacade {
      */
     public Long create(UserEntity userEntity) {
         try{
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         em.persist(userEntity);
-        em.flush();
+        tx.commit();
         return userEntity.getId();
         }
         catch(Exception e)

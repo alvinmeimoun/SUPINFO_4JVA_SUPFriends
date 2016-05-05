@@ -17,11 +17,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.Email;
+
+
 
 @Entity
-@Table(name = "USER")
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +47,7 @@ public class UserEntity implements Serializable {
 
     private Double longitude;
 
-     @Id
+    @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
@@ -60,7 +59,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
-    @Column(name = "FIRSTNAME", nullable=false)
+    @Column(name = "FIRSTNAME")
     public String getFirstName() {
         return firstName;
     }
@@ -70,7 +69,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
-    @Column(name = "LASTNAME", nullable=false)
+    @Column(name = "LASTNAME")
     public String getLastName() {
         return lastName;
     }
@@ -80,7 +79,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
-    @Column(name = "EMAIL", nullable=false)
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -90,7 +89,7 @@ public class UserEntity implements Serializable {
     }
 
     @NotNull
-    @Column(name = "USERNAME", nullable=false, unique = true)
+    @Column(name = "USERNAME")
     public String getUserName() {
         return userName;
     }
@@ -98,7 +97,7 @@ public class UserEntity implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    @Column(name = "LATITUDE", nullable=true)
+    @Column(name = "LATITUDE")
     public Double getLatitude() {
         return latitude;
     }
@@ -106,7 +105,7 @@ public class UserEntity implements Serializable {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
-    @Column(name = "LONGITUDE", nullable=true)
+    @Column(name = "LONGITUDE")
     public Double getLongitude() {
         return longitude;
     }
@@ -118,7 +117,7 @@ public class UserEntity implements Serializable {
     
 
     @NotNull
-    @Column(name = "PASSWORD", nullable=false)
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
@@ -132,7 +131,7 @@ public class UserEntity implements Serializable {
      * @return the phoneNumber
      */
     @NotNull
-    @Column(name = "PHONENUMBER", nullable=false)
+    @Column(name = "PHONENUMBER")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -147,11 +146,7 @@ public class UserEntity implements Serializable {
     /**
      * @return the groups
      */
-    @ManyToMany
-            @JoinTable(
-      name="GROUP_MEMBERS",
-      joinColumns=@JoinColumn(name="GroupId", referencedColumnName="ID"),
-      inverseJoinColumns=@JoinColumn(name="UserId", referencedColumnName="ID"))
+    @ManyToMany(mappedBy="listMembers")
     public List<GroupEntity> getGroups() {
         return groups;
     }

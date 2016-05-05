@@ -47,7 +47,8 @@ public class UserBusiness {
     
     private UserEntity loggedUser;
     public UserBusiness(){
-     this.userFacade = new UserFacade();   
+     this.userFacade = new UserFacade(); 
+     this.groupFacade = new GroupFacade();
     }
     
     /**
@@ -114,6 +115,14 @@ public class UserBusiness {
     }
     public String register() {
         
+       GroupEntity group = new GroupEntity();
+       group.setOwnerId(Long.valueOf("1"));
+       group.setName("test");
+       List<UserEntity> list = new ArrayList<UserEntity>();
+     
+       group.setListMembers(list);
+       groupFacade.create(group);
+       
        UserEntity user = new UserEntity();
        user.setUserName(username);
        user.setPassword(password);
@@ -122,20 +131,15 @@ public class UserBusiness {
        user.setEmail(email);
        user.setPhoneNumber(phonenumber);
        user.setGroups(new ArrayList<GroupEntity>());
-       
+       user.setLatitude(Double.valueOf("0.0"));
+       user.setLongitude(Double.valueOf("0.0"));
       
         
        
        
        Long id = userFacade.create(user);
-       user.setId(id);
-       GroupEntity group = new GroupEntity();
-       group.setOwnerId(user.getId());
-       group.setName("test");
-       List<UserEntity> list = new ArrayList<UserEntity>();
-       list.add(user);
-       group.setListMembers(list);
-       groupFacade.create(group);
+       //user.setId(id);
+     
        
        return null;
         

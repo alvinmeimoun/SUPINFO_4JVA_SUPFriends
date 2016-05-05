@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "GROUP")
 public class GroupEntity implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -41,7 +40,7 @@ public class GroupEntity implements Serializable {
     }
     
     @NotNull
-    @Column(name = "NAME", nullable=false)
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -53,7 +52,12 @@ public class GroupEntity implements Serializable {
     /**
      * @return the ListMembers
      */
-    @ManyToMany(mappedBy="groups")
+    
+    @ManyToMany
+    @JoinTable(
+    name="GROUP_MEMBERS",
+    joinColumns=@JoinColumn(name="GroupId", referencedColumnName="ID"),
+    inverseJoinColumns=@JoinColumn(name="UserId", referencedColumnName="ID"))
     public List<UserEntity> getListMembers() {
         return listMembers;
     }
@@ -69,7 +73,7 @@ public class GroupEntity implements Serializable {
      * @return the ownerId
      */
     @NotNull
-    @Column(name = "OWNERID", nullable=false)
+    @Column(name = "OWNERID")
     public Long getOwnerId() {
         return ownerId;
     }

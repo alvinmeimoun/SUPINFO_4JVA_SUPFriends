@@ -6,7 +6,9 @@
 package com.supinfo.supfriends.ejb.entity.metamodel;
 
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
+import com.supinfo.supfriends.ejb.entity.UserEntity;
 import java.util.List;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -17,8 +19,8 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(GroupEntity.class)
 public class GroupEntity_ {
  
-    public static volatile SingularAttribute<GroupEntity, Long> id;
+    public static volatile ListAttribute<GroupEntity, UserEntity> listMembers;
     public static volatile SingularAttribute<GroupEntity, String> name;
+    public static volatile SingularAttribute<GroupEntity, Long> id;
     public static volatile SingularAttribute<GroupEntity, Long> ownerId;
-    public static volatile SingularAttribute<GroupEntity_, List<UserEntity_>> listMembers;
 }
