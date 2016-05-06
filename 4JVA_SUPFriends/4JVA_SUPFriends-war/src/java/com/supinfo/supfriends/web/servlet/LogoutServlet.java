@@ -22,13 +22,14 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.addCookie(new Cookie("sb_username", ""));
-        response.addCookie(new Cookie("sb_token", ""));
-        response.sendRedirect("login");
+        request.getSession().removeAttribute("username");
+        request.getSession().removeAttribute("id");
+        
+        response.sendRedirect("http://localhost:8080/4JVA_SUPFriends-war/faces/login.xhtml");
     }
 
     /**
-     * Returns a short description of the servlet.
+     * Returns a short description of the servle    t.
      *
      * @return a String containing servlet description
      */

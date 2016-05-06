@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title><ui:insert name="title" /></title>
+         <link rel="stylesheet" href="css/libs/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/libs/bootstrap-theme.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/login.css" type="text/css"/>
+        <script src="js/libs/jquery-2.2.0.min.js"></script>
+        <script src="js/libs/bootstrap.min.js"></script>
+    </h:head>
+
+    <h:body>
+<nav class="navbar navbar-default" style="margin-bottom: 0;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="home">SupFriends</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/faces/login.xhtml">Se connecter</a></li>
+        <li><a href="/faces/register.xtml">S'enregistrer</a></li>
+    </ul>
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+        <h1><ui:insert name="title" /></h1>
+        
+        <ui:insert name="links" />
+
+        <ui:insert name="content" />
+</div>
+    </h:body>
+</html>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.supinfo.supfriends.ejb.business;
+package com.supinfo.supfriends.ejb.controller;
 
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
@@ -16,10 +16,15 @@ import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -27,9 +32,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @ManagedBean
 @SessionScoped
-public class UserBusiness {
+public class UserController {
     
+    @EJB
     private static UserFacade userFacade;
+    @EJB
     private static GroupFacade groupFacade;
     
     @NotEmpty
@@ -44,9 +51,15 @@ public class UserBusiness {
     private String email;
     @NotEmpty
     private String phonenumber;
+     @NotEmpty
+    private String latitude;
+    @NotEmpty
+    private String longitude;
+    
+    private String errorMessage;
     
     private UserEntity loggedUser;
-    public UserBusiness(){
+    public UserController(){
         if(userFacade == null) userFacade = new UserFacade();
         if(groupFacade == null) groupFacade = new GroupFacade();
     }
@@ -100,8 +113,7 @@ public class UserBusiness {
      }
     
     public String login() {
-        loggedUser = null;
-                //userFacade..login(username, password);
+        loggedUser = userFacade.login(username, password);
         
         if(null == loggedUser) {
             return null;
@@ -109,43 +121,45 @@ public class UserBusiness {
         
         username = null;
         password = null;
-        
-        return null;
-       
+           HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+           //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", loggedUser.getUserName());
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", loggedUser.getId());
+            return "connected_home?faces-redirect=true";       
     }
+    
     public String register() {
         
-       GroupEntity group = new GroupEntity();
-       group.setOwnerId(Long.valueOf("1"));
-       group.setName("test");
-       List<UserEntity> list = new ArrayList<UserEntity>();
-     
-       group.setListMembers(list);
-       groupFacade.create(group);
-       
+        if(userFacade.findByUsername(username) != null)
+        {
+            setErrorMessage("Username déjà existant");
+            return null;
+        }
        UserEntity user = new UserEntity();
        user.setUserName(username);
        user.setPassword(password);
        user.setFirstName(firstname);
        user.setLastName(lastname);
        user.setEmail(email);
-       user.setPhoneNumber(phonenumber);
+       user.setPhoneNumber(getPhonenumber());
        user.setGroups(new ArrayList<GroupEntity>());
-       user.setLatitude(Double.valueOf("0.0"));
-       user.setLongitude(Double.valueOf("0.0"));
+       user.setLatitude(Double.valueOf(latitude));
+       user.setLongitude(Double.valueOf(longitude));
       
-        
-       
        
        Long id = userFacade.create(user);
-       //user.setId(id);
-     
-       
-       return null;
-        
-       
+       if(null == id) {
+            return null;
+       }
+       else {
+           //HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+           //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUserName());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", user.getId());
+            return "connected_home?faces-redirect=true";      
+       }
     }
-    
+  
     public String getPassword() {
         return password;
     }
@@ -220,6 +234,48 @@ public class UserBusiness {
      */
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    /**
+     * @return the errorMessage
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * @param errorMessage the errorMessage to set
+     */
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    /**
+     * @return the latitude
+     */
+    public String getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public String getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
 }

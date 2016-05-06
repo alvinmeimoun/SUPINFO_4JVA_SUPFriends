@@ -1,0 +1,163 @@
+.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 20px;
+    padding: 40px 0px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 290px;
+    height: 92px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.need-help
+{
+    margin-top: 10px;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
+}
+.login-message
+{
+    margin-top: 10px;
+}
+.div-home {
+    
+-moz-box-shadow: 0.5px 0.5px 1px 0.5px #34696d;
+-webkit-box-shadow: 0.5px 0.5px 1px 0.5px #34696d;
+-o-box-shadow: 0.5px 0.5px 1px 0.5px #34696d;
+box-shadow: 0.5px 0.5px 1px 0.5px #34696d;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#34696d, Direction=134, Strength=1);
+height: 350px;
+text-align: center;
+}
+
+.div-home-green {
+    
+-moz-box-shadow: 0.5px 0.5px 1px 0.5px #036400;
+-webkit-box-shadow: 0.5px 0.5px 1px 0.5px #036400;
+-o-box-shadow: 0.5px 0.5px 1px 0.5px #036400;
+box-shadow: 0.5px 0.5px 1px 0.5px #036400;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#036400, Direction=134, Strength=1);
+height: 350px;
+text-align: center;
+}
+
+.div-home-orange {
+    
+-moz-box-shadow: 0.5px 0.5px 1px 0.5px orange;
+-webkit-box-shadow: 0.5px 0.5px 1px 0.5px orange;
+-o-box-shadow: 0.5px 0.5px 1px 0.5px orange;
+box-shadow: 0.5px 0.5px 1px 0.5px orange;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=orange, Direction=134, Strength=1);
+height: 350px;
+text-align: center;
+}
+.circle {
+   
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: solid steelblue 7px;
+    margin-left: 21%;
+    margin-top: 20%;
+}
+
+.circle-green {
+   
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: solid #9aff99 7px;
+    margin-left: 21%;
+    margin-top: 20%;
+}
+
+.circle-orange {
+   
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: solid orange 7px;
+    margin-left: 21%;
+    margin-top: 20%;
+}
+.inner-circle 
+{
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 30%;
+    font-size: 40px;
+}
+
+.bs-docs-header, .bs-docs-masthead {
+    position: relative;
+    padding: 30px 0;
+    color: #cdbfe3;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    background-color: #6f5499;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
+    background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+    background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
+    background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+    background-repeat: repeat-x;
+    margin-bottom: 50px;
+}

@@ -6,6 +6,7 @@
 package com.supinfo.supfriends.ejb.facade;
 
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
+import com.supinfo.supfriends.ejb.entity.GroupEntity_;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -30,11 +31,11 @@ import javax.persistence.criteria.Root;
 @LocalBean
 public class GroupFacade {
     private EntityManager em;
-
+    private EntityManagerFactory emf;
     
     public GroupFacade()
     {
-          EntityManagerFactory emf = Persistence.createEntityManagerFactory("supfriends-ejbPU");
+          emf = Persistence.createEntityManagerFactory("supfriends-ejbPU");
           em = emf.createEntityManager();
     }
    
@@ -94,6 +95,19 @@ public class GroupFacade {
         return em.createQuery(cq).getResultList();
     }
 
+    public List<GroupEntity> findByUserId(Long userId) throws NoResultException{
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<GroupEntity> criteriaQuery = criteriaBuilder.createQuery(GroupEntity.class);
+        Root<GroupEntity> user = criteriaQuery.from(GroupEntity.class);
+        
+        criteriaQuery.where(criteriaBuilder.equal(user.get(GroupEntity_.ownerId), userId));
+        
+        try{
+            return em.createQuery(criteriaQuery).getResultList();
+        } catch (NoResultException nre){
+            return null;
+        }
+    }
     /**
      * Récupère un certains nombre de User
      * @param range Tableau à 2 valeurs indiquant en première position la position de départ et en deuxième la position limite

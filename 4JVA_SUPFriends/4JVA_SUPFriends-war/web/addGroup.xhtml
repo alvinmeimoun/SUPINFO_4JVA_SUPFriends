@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="Templates/authenticated_home.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="Ajouter un groupe"/>
+    </ui:define>
+    
+    <ui:define name="content">
+        <h:form>
+            <h:outputLabel for="groupName" value="Nom du groupe :"/>
+            <h:inputText id="groupName" value="#{addGroupController.groupName}" />
+
+
+            <h:commandButton value="Register" action="#{addGroupController.addGroup()}" />
+        </h:form>
+
+    </ui:define>
+</ui:composition>

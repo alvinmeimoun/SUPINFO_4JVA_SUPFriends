@@ -1,30 +1,52 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="Templates/authenticated.xhtml">
+                template="Templates/non_authenticated.xhtml">
 
     <ui:define name="title">
         <h:outputText value="Register"/>
     </ui:define>
     
     <ui:define name="content">
+         <div class=" container col-lg-6">
         <h:form>
+             <div class="form-group">
             <h:outputLabel for="firstname" value="Firstname :"/>
-            <h:inputText id="firstname" value="#{userBusiness.firstname}" />
+            <h:inputText required="true" class="form-control" id="firstname" value="#{userController.firstname}" />
+            </div>
+            <div class="form-group">
             <h:outputLabel for="lastname" value="Lastname :"/>
-            <h:inputText id="lastname" value="#{userBusiness.lastname}" />
+            <h:inputText required="true" class="form-control" id="lastname" value="#{userController.lastname}" />
+            </div>
+            <div class="form-group">
             <h:outputLabel for="email" value="Email :"/>
-            <h:inputText id="email" value="#{userBusiness.email}" />
+            <h:inputText required="true" class="form-control"  id="email" value="#{userController.email}" />
+            </div>
+            <div class="form-group">
             <h:outputLabel for="phonenumber" value="Phone Number :"/>
-            <h:inputText id="phonenumber" value="#{userBusiness.phonenumber}" />
+            <h:inputText required="true" class="form-control" id="phonenumber" value="#{userController.phonenumber}" />
+            </div>
+            <div class="form-group">
             <h:outputLabel for="username" value="Username :"/>
-            <h:inputText id="username" value="#{userBusiness.username}" />
+            <h:inputText required="true" class="form-control" id="username" value="#{userController.username}" />
+            </div>
+            <div class="form-group">
             <h:outputLabel for="password" value="Password :"/>
-            <h:inputSecret id="password" value="#{userBusiness.password}" />
+            <h:inputSecret required="true" class="form-control" id="password" value="#{userController.password}" />
+            </div>
+            <div class="form-group">
+            <h:outputLabel for="latitude" value="Latitude :"/>
+            <h:inputText required="true" class="form-control" id="latitude" value="#{userController.latitude}" />
+            </div>
+            <div class="form-group">
+            <h:outputLabel for="longitude" value="Longitude :"/>
+            <h:inputText required="true" class="form-control" id="longitude" value="#{userController.longitude}" />
+            </div>
 
 
-            <h:commandButton value="Register" action="#{userBusiness.register()}" />
+            <h:commandButton value="Register" action="#{userController.register()}" />
+            <h:outputText id="message"  value="#{userController.errorMessage}" />
         </h:form>
-
+         </div>
     </ui:define>
 </ui:composition>

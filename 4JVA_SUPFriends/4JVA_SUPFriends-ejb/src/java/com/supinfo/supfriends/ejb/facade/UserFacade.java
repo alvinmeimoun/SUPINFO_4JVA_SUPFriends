@@ -7,6 +7,7 @@ package com.supinfo.supfriends.ejb.facade;
 
 import com.supinfo.supfriends.ejb.entity.UserEntity_;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -30,11 +31,11 @@ import javax.persistence.criteria.Root;
 @LocalBean
 public class UserFacade {
     private EntityManager em;
-
+    private EntityManagerFactory emf;
     
     public UserFacade()
     {
-          EntityManagerFactory emf = Persistence.createEntityManagerFactory("supfriends-ejbPU");
+          emf = Persistence.createEntityManagerFactory("supfriends-ejbPU");
           em = emf.createEntityManager();
     }
     /**
@@ -61,8 +62,20 @@ public class UserFacade {
      * Modifie un utilisateur dans la base de données
      * @param userEntity UserEntity à modifier
      */
-    public void edit(UserEntity userEntity) {
-        em.merge(userEntity);
+    public boolean edit(UserEntity userEntity) {
+        try
+        {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            em.merge(userEntity);
+            tx.commit();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return false;
+        }
     }
 
     /**
@@ -135,6 +148,20 @@ public class UserFacade {
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public UserEntity login(String username, String password) throws NoResultException{
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<UserEntity> criteriaQuery = criteriaBuilder.createQuery(UserEntity.class);
+        Root<UserEntity> user = criteriaQuery.from(UserEntity.class);
+        
+        criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(user.get(UserEntity_.userName), username) ,criteriaBuilder.equal(user.get(UserEntity_.password), password)));
+        
+        try{
+            return em.createQuery(criteriaQuery).getSingleResult();
+        } catch (NoResultException nre){
+            return null;
+        }
     }
 
 }
