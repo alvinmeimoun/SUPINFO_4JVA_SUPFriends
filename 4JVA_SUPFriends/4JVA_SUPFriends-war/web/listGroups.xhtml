@@ -27,8 +27,9 @@
                     <f:facet name="header">
                         <h:outputText value="Actions"/>
                     </f:facet>
-
-                    <h:commandLink value="Remove" action="#{listGroupController.remove()}"/>
+                    <a href="detailsGroup.xhtml?groupId=#{group.id}">Voir</a>
+                    <a href="searchFriend.xhtml?groupId=#{group.id}">Ajouter un ami</a>
+                   
                 </h:column>
             </h:dataTable>
 

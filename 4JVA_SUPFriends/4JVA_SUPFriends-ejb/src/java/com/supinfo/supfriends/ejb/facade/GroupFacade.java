@@ -8,6 +8,7 @@ package com.supinfo.supfriends.ejb.facade;
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.GroupEntity_;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -47,13 +48,21 @@ public class GroupFacade {
         }
         catch(Exception e)
         {
-            System.out.println(e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 
 
     public void edit(GroupEntity groupEntity) {
-        em.merge(groupEntity);
+        try{
+            em.getTransaction().begin();
+            em.merge(groupEntity);
+            em.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
     }
 
 
@@ -61,8 +70,8 @@ public class GroupFacade {
         em.remove(em.merge(groupEntity));
     }
 
-    public UserEntity find(Long id) {
-        return em.find(UserEntity.class, id);
+    public GroupEntity find(Long id) {
+        return em.find(GroupEntity.class, id);
     }
     
     /**

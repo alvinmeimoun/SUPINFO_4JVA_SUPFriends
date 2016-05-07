@@ -114,6 +114,20 @@ public class UserFacade {
             return null;
         }
     }
+    
+    public UserEntity findByPhoneNumber(String phoneNumber) throws NoResultException{
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<UserEntity> criteriaQuery = criteriaBuilder.createQuery(UserEntity.class);
+        Root<UserEntity> user = criteriaQuery.from(UserEntity.class);
+        
+        criteriaQuery.where(criteriaBuilder.equal(user.get(UserEntity_.phoneNumber), phoneNumber));
+        
+        try{
+            return em.createQuery(criteriaQuery).getSingleResult();
+        } catch (NoResultException nre){
+            return null;
+        }
+    }
 
     /**
      * Récupère la liste de tout les utilisateurs
