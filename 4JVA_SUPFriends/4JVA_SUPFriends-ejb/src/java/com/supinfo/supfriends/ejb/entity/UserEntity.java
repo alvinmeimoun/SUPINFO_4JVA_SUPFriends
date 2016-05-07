@@ -132,7 +132,7 @@ public class UserEntity implements Serializable {
      * @return the phoneNumber
      */
     @NotNull
-    @Column(name = "PHONENUMBER")
+    @Column(name = "PHONENUMBER", length = 10)
     public String getPhoneNumber() {
         return phoneNumber;
     }
