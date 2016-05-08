@@ -39,6 +39,12 @@ public class UserController {
     @EJB
     private static GroupFacade groupFacade;
     
+    @EJB
+    private UserFacade userFacedeEjb;
+    
+    @EJB
+    private GroupFacade groupFacadeEjb;
+    
     @NotEmpty
     private String username;
     @NotEmpty

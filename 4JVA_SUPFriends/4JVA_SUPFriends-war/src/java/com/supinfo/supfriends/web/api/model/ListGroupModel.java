@@ -5,6 +5,7 @@
  */
 package com.supinfo.supfriends.web.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,10 @@ import java.util.List;
 public class ListGroupModel {
     
     private List<GroupModel> groups;
+    
+    public ListGroupModel(){
+        groups = new ArrayList<>();
+    }
     
     public List<GroupModel> getGroups(){
         return groups;
