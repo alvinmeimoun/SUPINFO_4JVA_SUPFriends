@@ -5,12 +5,15 @@
  */
 package com.supinfo.supfriends.ejb.controller;
 
+import com.supinfo.supfriends.ejb.config.ServerConfig;
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
@@ -22,7 +25,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Antonin
  */
 @ManagedBean
-@SessionScoped
 public class detailsGroupController {
     
     @EJB
@@ -33,7 +35,11 @@ public class detailsGroupController {
     @NotEmpty
     private DataModel<UserEntity> listFriendsDataModel;
     @NotEmpty
+    private List<UserEntity> listFriends;
+    @NotEmpty
     private GroupEntity group;
+    @NotEmpty
+    private Long currentUserId;
     
     public detailsGroupController()
     {
@@ -42,8 +48,10 @@ public class detailsGroupController {
         
         String gpId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("groupId");
         Long groupId = Long.valueOf(gpId);
+        currentUserId = ServerConfig.GetUserId();
         group = groupFacade.find(groupId);
-        listFriendsDataModel = new ListDataModel<UserEntity>(group.getListMembers());
+        listFriends = group.getListMembers();
+        listFriendsDataModel = new ListDataModel<UserEntity>(listFriends);
         
     }
 
@@ -54,8 +62,8 @@ public class detailsGroupController {
         group.getListMembers().remove(memberToRemove);
         
         groupFacade.edit(group);
-        
-        return "detailsGroup.xhtml?faces-redirect=true";
+        return "detailsGroup?groupId="+ group.getId() + "&faces-redirect=true";
+        //new detailsGroupController();
     }
     
     /**
@@ -85,6 +93,20 @@ public class detailsGroupController {
      */
     public void setListFriendsDataModel(DataModel<UserEntity> listFriendsDataModel) {
         this.listFriendsDataModel = listFriendsDataModel;
+    }
+
+    /**
+     * @return the currentUserId
+     */
+    public Long getCurrentUserId() {
+        return currentUserId;
+    }
+
+    /**
+     * @param currentUserId the currentUserId to set
+     */
+    public void setCurrentUserId(Long currentUserId) {
+        this.currentUserId = currentUserId;
     }
     
     

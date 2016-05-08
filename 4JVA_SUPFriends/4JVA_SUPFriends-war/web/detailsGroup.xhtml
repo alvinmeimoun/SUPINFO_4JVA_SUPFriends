@@ -12,7 +12,7 @@
         
         <h:outputLabel for="groupName" value="Nom du groupe :"/>
         <h:outputText id="groupName" value="#{detailsGroupController.group.name}"></h:outputText>
-        <h:form>
+       
         <h:dataTable class="table table-bordered" value="#{detailsGroupController.listFriendsDataModel}" var="member">
                 <h:column>
                     <f:facet name="header">
@@ -43,10 +43,11 @@
                     <f:facet name="header">
                         <h:outputText value="Actions"/>
                     </f:facet>
+                    <h:form rendered="#{member.id eq detailsGroupController.currentUserId || detailsGroupController.group.ownerId eq detailsGroupController.currentUserId}" >
                     <h:commandLink value="Supprimer" action="#{detailsGroupController.removeUserFromGroup()}"/>
-                   
+                   </h:form>
                 </h:column>
             </h:dataTable>
-</h:form>
+
     </ui:define>
 </ui:composition>

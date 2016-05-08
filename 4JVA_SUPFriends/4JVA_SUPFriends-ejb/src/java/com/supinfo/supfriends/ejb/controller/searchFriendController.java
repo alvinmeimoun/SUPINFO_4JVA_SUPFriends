@@ -56,6 +56,7 @@ public class searchFriendController {
         String gpId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("groupId");
         groupId = Long.valueOf(gpId);
         group = groupFacade.find(groupId);
+        setErrorMessage(null);
     }
     
     public String searchFriendByPhoneNumber()
