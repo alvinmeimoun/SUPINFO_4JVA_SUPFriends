@@ -58,6 +58,7 @@ public class GroupFacade {
             em.getTransaction().begin();
             em.merge(groupEntity);
             em.getTransaction().commit();
+            em.refresh(groupEntity);
         }
         catch(Exception e)
         {
@@ -66,33 +67,26 @@ public class GroupFacade {
     }
 
 
-    public void remove(GroupEntity groupEntity) {
-        em.remove(em.merge(groupEntity));
+    public boolean remove(GroupEntity groupEntity) {
+       
+        try{
+            em.getTransaction().begin();
+            em.remove(em.merge(groupEntity));
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return false;
+        }
     }
 
     public GroupEntity find(Long id) {
-        return em.find(GroupEntity.class, id);
+        GroupEntity group =  em.find(GroupEntity.class, id);
+        em.refresh(group);
+        return group;
     }
-    
-    /**
-     * Récupère un utilisateur depuis son nom d'utilisateur
-     * @param username Nom d'utilisateur
-     * @return UserEntity
-     * @throws NoResultException Aucun utilisateur n'a été toruvé pour ce nom d'utilisateur
-     */
-    /*public UserEntity findByUsername(String username) throws NoResultException{
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<UserEntity> criteriaQuery = criteriaBuilder.createQuery(UserEntity.class);
-        Root<UserEntity> user = criteriaQuery.from(UserEntity.class);
-        
-        criteriaQuery.where(criteriaBuilder.equal(user.get(UserEntity_.userName), username));
-        
-        try{
-            return em.createQuery(criteriaQuery).getSingleResult();
-        } catch (NoResultException nre){
-            return null;
-        }
-    }*/
 
     /**
      * Récupère la liste de tout les utilisateurs

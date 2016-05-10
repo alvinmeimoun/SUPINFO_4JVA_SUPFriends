@@ -5,13 +5,21 @@
  */
 package com.supinfo.supfriends.ejb.controller;
 
+import com.supinfo.supfriends.ejb.config.ServerConfig;
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
+import java.io.IOException;
 import javax.ejb.EJB;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -31,8 +39,6 @@ public class addGroupController {
     
     @NotEmpty
     private int ownerId;
-    
-    
 
     public addGroupController()
     {
@@ -41,7 +47,7 @@ public class addGroupController {
         
     }
 
-    public String addGroup()
+    public String addGroup() throws IOException
     {
         GroupEntity group = new GroupEntity();
         group.setName(groupName);
@@ -54,9 +60,9 @@ public class addGroupController {
         {
             return null;
         }
+        groupName = null;
         
         return "listGroups?faces-redirect=true";
-        
     }
     
     

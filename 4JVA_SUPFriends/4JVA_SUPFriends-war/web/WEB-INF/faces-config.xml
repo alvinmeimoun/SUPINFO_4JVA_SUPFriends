@@ -17,11 +17,12 @@
     <managed-bean-name>addGroupController</managed-bean-name>
     <managed-bean-class>com.supinfo.supfriends.ejb.controller.addGroupController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
+
 </managed-bean>
 <managed-bean>
     <managed-bean-name>listGroupController</managed-bean-name>
     <managed-bean-class>com.supinfo.supfriends.ejb.controller.listGroupController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
+    <managed-bean-scope>request</managed-bean-scope>
 </managed-bean>
 <managed-bean>
     <managed-bean-name>searchFriendController</managed-bean-name>
@@ -31,6 +32,6 @@
 <managed-bean>
     <managed-bean-name>detailsGroupController</managed-bean-name>
     <managed-bean-class>com.supinfo.supfriends.ejb.controller.detailsGroupController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
+    <managed-bean-scope>view</managed-bean-scope>
 </managed-bean>
 </faces-config>

@@ -7,12 +7,15 @@ package com.supinfo.supfriends.ejb.controller;
 
 import com.supinfo.supfriends.ejb.config.ServerConfig;
 import com.supinfo.supfriends.ejb.entity.GroupEntity;
+import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -20,7 +23,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Antonin
  */
 @ManagedBean
-@SessionScoped
 public class listGroupController {
  
     @EJB
@@ -30,6 +32,10 @@ public class listGroupController {
     
     @NotEmpty
     private List<GroupEntity> listGroups;
+    @NotEmpty
+    private DataModel<GroupEntity> listGroupsDataModel;
+    @NotEmpty
+    private UserEntity currentUser;
     
     @NotEmpty
     private int ownerId;
@@ -38,16 +44,29 @@ public class listGroupController {
     {
         if(userFacade == null) userFacade = new UserFacade();
         if(groupFacade == null) groupFacade = new GroupFacade();
+        
+        initDatas();
+    }
+    
+    public void initDatas()
+    {
+
+            Long userId = ServerConfig.GetUserId();
+            listGroups = groupFacade.findByUserId(userId);
+            currentUser = userFacade.find(userId);
+            if(currentUser.getGroups().size() > 0)
+            {
+                listGroups.addAll(currentUser.getGroups());
+            }
+            setListGroupsDataModel(new ListDataModel<GroupEntity>(listGroups));
+        
     }
 
     /**
      * @return the listGroups
      */
     public List<GroupEntity> getListGroups() {
-        if(listGroups == null)
-        {
-            listGroups = groupFacade.findByUserId(ServerConfig.GetUserId());
-        }
+        
         return listGroups;
     }
 
@@ -71,9 +90,40 @@ public class listGroupController {
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
-    public void remove()
+    public String remove()
     {
-        
-        
+       GroupEntity group =  getListGroupsDataModel().getRowData();
+       boolean isDeleted = groupFacade.remove(group);
+       if(isDeleted)
+           return "listGroups?faces-redirect=true";
+       return null;
+    }
+
+    /**
+     * @return the currentUser
+     */
+    public UserEntity getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * @param currentUser the currentUser to set
+     */
+    public void setCurrentUser(UserEntity currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    /**
+     * @return the listGroupsDataModel
+     */
+    public DataModel<GroupEntity> getListGroupsDataModel() {
+        return listGroupsDataModel;
+    }
+
+    /**
+     * @param listGroupsDataModel the listGroupsDataModel to set
+     */
+    public void setListGroupsDataModel(DataModel<GroupEntity> listGroupsDataModel) {
+        this.listGroupsDataModel = listGroupsDataModel;
     }
 }
