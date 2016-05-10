@@ -19,6 +19,7 @@ import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -65,6 +66,8 @@ public class UserController {
     private String errorMessage;
     
     private UserEntity loggedUser;
+    
+    private UICommand mybutton;
     public UserController(){
         if(userFacade == null) userFacade = new UserFacade();
         if(groupFacade == null) groupFacade = new GroupFacade();
@@ -137,10 +140,12 @@ public class UserController {
     }
     
     public String register() {
-        
+     
+        FacesContext context = FacesContext.getCurrentInstance();
         if(userFacade.findByUsername(username) != null)
         {
-            setErrorMessage("Username déjà existant");
+            FacesMessage message = new FacesMessage("Username déjà existant.");
+            context.addMessage(getMybutton().getClientId(context), message);
             return null;
         }
        UserEntity user = new UserEntity();
@@ -157,6 +162,8 @@ public class UserController {
        
        Long id = userFacade.create(user);
        if(null == id) {
+            FacesMessage message = new FacesMessage("Un problème est survenu lors de la sauvegarde.");
+            context.addMessage(getMybutton().getClientId(context), message);
             return null;
        }
        else {
@@ -284,6 +291,20 @@ public class UserController {
      */
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    /**
+     * @return the mybutton
+     */
+    public UICommand getMybutton() {
+        return mybutton;
+    }
+
+    /**
+     * @param mybutton the mybutton to set
+     */
+    public void setMybutton(UICommand mybutton) {
+        this.mybutton = mybutton;
     }
 
 }

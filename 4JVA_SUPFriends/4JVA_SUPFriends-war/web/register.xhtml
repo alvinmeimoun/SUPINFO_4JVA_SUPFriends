@@ -6,9 +6,40 @@
     
     <ui:define name="content">
         <div class="container">
+                     <script type="text/javascript">
+             $(function(){
+             $(".latitude").change(function(){
+                 if(/^[0-9]\d*(\.\d+)?$/.test($(this).val()) === false)
+                 {
+                     $("#latError").css("display","block");
+                     $(".btnSubmit").css("display","none"); 
+                 }
+                 else
+                 {
+                    $("#latError").css("display","none"); 
+                    $(".btnSubmit").css("display","block"); 
+                 }
+             });
+               $(".longitude").change(function(){
+                 if(/^[0-9]\d*(\.\d+)?$/.test($(this).val()) === false)
+                 {
+                     $("#longError").css("display","block");
+                     $(".btnSubmit").css("display","none"); 
+                 }
+                 else
+                 {
+                    $("#longError").css("display","none"); 
+                    $(".btnSubmit").css("display","block"); 
+                 }
+             });
+         });
+        </script>
         <h1>S'enregistrer</h1>
          <div class=" container col-lg-6">
+      
         <h:form>
+             <h:message for="mybutton" id="mymessage" style="color:red; font-weight: bold;"/>
+             <br/>
              <div class="form-group">
             <h:outputLabel for="firstname" value="Firstname :"/>
             <h:inputText required="true" class="form-control" id="firstname" value="#{userController.firstname}" />
@@ -26,6 +57,16 @@
             <h:inputText required="true" maxlength="10"  class="form-control" id="phonenumber" value="#{userController.phonenumber}" />
             </div>
             <div class="form-group">
+            <h:outputLabel for="latitude" value="Latitude :"/>
+             <p style="color:red;display:none;" id="latError">La latitude doit un nombre décimal.</p>
+            <h:inputText required="true" class="form-control" id="latitude" value="#{userController.latitude}" />
+            </div>
+            <div class="form-group">
+            <h:outputLabel for="longitude" value="Longitude :"/>
+             <p style="color:red;display:none;" id="longError">La longitude doit un nombre décimal.</p>
+            <h:inputText required="true" class="form-control" id="longitude" value="#{userController.longitude}" />
+            </div>
+            <div class="form-group">
             <h:outputLabel for="username" value="Username :"/>
             <h:inputText required="true" class="form-control" id="username" value="#{userController.username}" />
             </div>
@@ -33,18 +74,8 @@
             <h:outputLabel for="password" value="Password :"/>
             <h:inputSecret required="true" class="form-control" id="password" value="#{userController.password}" />
             </div>
-            <div class="form-group">
-            <h:outputLabel for="latitude" value="Latitude :"/>
-            <h:inputText required="true" class="form-control" id="latitude" value="#{userController.latitude}" />
-            </div>
-            <div class="form-group">
-            <h:outputLabel for="longitude" value="Longitude :"/>
-            <h:inputText required="true" class="form-control" id="longitude" value="#{userController.longitude}" />
-            </div>
 
-
-            <h:commandButton class="btn btn-primary" value="S'enregistrer" action="#{userController.register()}" />
-            <h:outputText id="message"  value="#{userController.errorMessage}" />
+            <h:commandButton class="btn btn-primary btnSubmit" binding="#{userController.mybutton}" id="mybutton" value="S'enregistrer" action="#{userController.register()}" />
         </h:form>
          </div>
         </div>

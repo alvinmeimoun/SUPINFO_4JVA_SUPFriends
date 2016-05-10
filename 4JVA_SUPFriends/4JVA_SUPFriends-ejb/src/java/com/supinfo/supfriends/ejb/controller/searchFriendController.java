@@ -13,10 +13,13 @@ import com.supinfo.supfriends.ejb.facade.UserFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -42,10 +45,11 @@ public class searchFriendController {
     private String searchText;
     private String errorMessage;
     
-
     private Long groupId;
     
     private GroupEntity group;
+    
+    private UIComponent mybutton;
     
 
     public searchFriendController()
@@ -56,33 +60,40 @@ public class searchFriendController {
         groupId = Long.valueOf(gpId);
         group = groupFacade.find(groupId);
         errorMessage = null;
+       
     }
     
     public String searchFriendByPhoneNumber()
     {
+        FacesContext context = FacesContext.getCurrentInstance();
         
         UserEntity findUser = userFacade.findByPhoneNumber(searchText);
-        if(findUser.getGroups().contains(group))
+        if(findUser == null)
         {
-            setErrorMessage("L'ami portant le numéro " + searchText + "a déjà été ajouté dans le group" + group.getName());
-            searchText = null;
-            return null; 
+            FacesMessage message = new FacesMessage("L'utilisateur n'a pas été trouvé ou son numéro de téléphone est incorrect.");
+            context.addMessage(mybutton.getClientId(context), message);
+            return null;
+            
         }
-        if(findUser != null && !findUser.getId().equals(ServerConfig.GetUserId()))
+        for (UserEntity user : group.getListMembers())
+        {
+            if(user.getId().equals(findUser.getId()))
+            {
+                FacesMessage message = new FacesMessage("L'ami portant le numéro " + searchText + " a déjà été ajouté dans le groupe " + group.getName());
+                context.addMessage(mybutton.getClientId(context), message);
+                searchText = null;
+                return null; 
+            }
+        }
+        if(!findUser.getId().equals(ServerConfig.GetUserId()))
         {
             listFriends = new ArrayList<UserEntity>();
             listFriends.add(findUser);
             setListFriendsDataModel(new ListDataModel<UserEntity>(listFriends));
             searchText = null;
-            return "searchFriend?faces-redirect=true";
+            return "searchFriend?groupId=" + group.getId() + "&faces-redirect=true";
         }
-        else 
-        {
-            setErrorMessage("L'ami portant le numéro " + searchText + "n'a pas été trouvé.");
-            searchText = null;
-            return null;
-        }
-            
+        return null;    
     }
     
     public String addFriendToGroup()
@@ -99,13 +110,13 @@ public class searchFriendController {
        {
            return null ;
        }
-    list.add(friendToAdd);
-    groupFacade.edit(group);
-    setErrorMessage("L'ami portant le numéro " + friendToAdd.getPhoneNumber() + " a été ajouté au groupe "  + group.getName());
-    listFriends = null;
-    listFriendsDataModel = null;
-    
-    return "searchFriend?faces-redirect=true";
+        list.add(friendToAdd);
+        groupFacade.edit(group);
+        listFriends = null;
+        listFriendsDataModel = null;
+        searchText = null;
+
+        return "detailsGroup.xhtml?groupId=" + group.getId() + "&faces-redirect=true";
        
        
     }
@@ -193,4 +204,19 @@ public class searchFriendController {
     public void setGroup(GroupEntity group) {
         this.group = group;
     }
+
+    /**
+     * @return the mybutton
+     */
+    public UIComponent getMybutton() {
+        return mybutton;
+    }
+
+    /**
+     * @param mybutton the mybutton to set
+     */
+    public void setMybutton(UIComponent mybutton) {
+        this.mybutton = mybutton;
+    }
+
 }

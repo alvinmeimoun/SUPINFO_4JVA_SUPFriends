@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="Templates/authenticated_home.xhtml">
 
     <ui:define name="title">
@@ -8,8 +9,40 @@
     </ui:define>
     
     <ui:define name="content">
-        <div class=" container col-lg-6">
+         <script type="text/javascript">
+             $(function(){
+             $(".latitude").change(function(){
+                 if(/^[0-9]\d*(\.\d+)?$/.test($(this).val()) === false)
+                 {
+                     $("#latError").css("display","block");
+                     $(".btnSubmit").css("display","none"); 
+                 }
+                 else
+                 {
+                    $("#latError").css("display","none"); 
+                    $(".btnSubmit").css("display","block"); 
+                 }
+             });
+               $(".longitude").change(function(){
+                 if(/^[0-9]\d*(\.\d+)?$/.test($(this).val()) === false)
+                 {
+                     $("#longError").css("display","block");
+                     $(".btnSubmit").css("display","none"); 
+                 }
+                 else
+                 {
+                    $("#longError").css("display","none"); 
+                    $(".btnSubmit").css("display","block"); 
+                 }
+             });
+         });
+        </script>
+        <div class="col-md-3"></div>
+        <div class=" container col-md-6">
+          
+          <br/>
         <h:form>
+            <h:message for="mybutton" id="mymessage" style="color:red; font-weight: bold;"/>
             <div class="form-group">
             <h:outputLabel for="firstname" value="Firstname :"/>
             <h:inputText required="true" class="form-control" id="firstname" value="#{editProfileController.firstname}" />
@@ -27,6 +60,18 @@
             <h:inputText required="true" class="form-control"  maxlength="10"  id="phonenumber" value="#{editProfileController.phonenumber}" />
             </div>
             <div class="form-group">
+            <h:outputLabel for="latitude" value="Latitude :"/>
+            <p style="color:red;display:none;" id="latError">La latitude doit un nombre décimal.</p>
+            <h:inputText required="true" class="form-control latitude" id="latitude"  value="#{editProfileController.latitude}">
+            </h:inputText>
+            </div>
+            <div class="form-group">
+            <h:outputLabel for="longitude" value="Longitude :"/>
+            <p style="color:red;display:none;" id="longError">La longitude doit un nombre décimal.</p>
+            <h:inputText required="true" class="form-control longitude" id="longitude"  value="#{editProfileController.longitude}">
+            </h:inputText>
+            </div>
+            <div class="form-group">
             <h:outputLabel for="username" value="Username :"/>
             <h:inputText required="true" class="form-control" id="username" value="#{editProfileController.username}" />
             </div>
@@ -34,18 +79,12 @@
             <h:outputLabel for="password" value="Password :"/>
             <h:inputSecret required="true" class="form-control" id="password" value="#{editProfileController.password}" />
             </div>
-            <div class="form-group">
-            <h:outputLabel for="latitude" value="Latitude :"/>
-            <h:inputText required="true" class="form-control" id="latitude" value="#{editProfileController.latitude}" />
-            </div>
-            <div class="form-group">
-            <h:outputLabel for="longitude" value="Longitude :"/>
-            <h:inputText required="true" class="form-control" id="longitude" value="#{editProfileController.longitude}" />
-            </div>
+            
 
-            <h:commandButton class="btn btn-primary" value="Modifier mon profil" action="#{editProfileController.saveChanges()}" />
-            <h:outputText id="message"  value="#{editProfileController.errorMessage}" />
+            <h:commandButton class="btn btn-primary btnSubmit" binding="#{editProfileController.mybutton}" value="Modifier mon profil" id="mybutton" action="#{editProfileController.saveChanges()}" />
+            <br/>
         </h:form>
 </div>
+        <div class="col-md-3"></div>
     </ui:define>
 </ui:composition>

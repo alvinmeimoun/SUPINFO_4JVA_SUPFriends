@@ -12,24 +12,22 @@
     <br/>
 
     <ui:define name="content">
-       <h:form rendered="#{not empty searchFriendController.errorMessage}"  >
-             <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">X</button>
-               <h:outputText   style="margin-bottom: 20px;"  id="message"  value="#{searchFriendController.errorMessage}" />
 
-            </div>
-        </h:form>
+          <h:message for="mybutton" id="mymessage" style="color:red; font-weight: bold;"/>
+          <br/>
         <h:form>
+            
+            <div class="form-inline">
             <h:outputLabel for="groupName" value="Numéro de telephone :"/>
-            <h:inputText id="groupName" maxlength="10" value="#{searchFriendController.searchText}" />
-
-
+            <h:inputText id="groupName" class="form-control" maxlength="10" value="#{searchFriendController.searchText}" />
             <h:commandButton class="btn btn-primary" value="Rechercher" action="#{searchFriendController.searchFriendByPhoneNumber()}" />
+            </div>
             <br/>
            
           </h:form>
             <br/>
           <h:form>
+           
             <h3>Liste des résultats trouvés</h3>
             <h:dataTable class="table table-bordered" rendered="#{not empty searchFriendController.listFriendsDataModel}" value="#{searchFriendController.listFriendsDataModel}" var="user">
                 <h:column>
@@ -73,7 +71,7 @@
                         <h:outputText value="Actions"/>
                     </f:facet>
 
-                    <h:commandLink value="Ajouter au groupe" action="#{searchFriendController.addFriendToGroup()}" />
+                    <h:commandLink id="mybutton" binding="#{searchFriendController.mybutton}" value="Ajouter au groupe" action="#{searchFriendController.addFriendToGroup()}" />
                 </h:column>
             </h:dataTable>
         </h:form>

@@ -10,8 +10,11 @@ import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UICommand;
+import javax.faces.context.FacesContext;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -49,6 +52,8 @@ public class editProfileController {
     
     private UserEntity loggedUser;
     
+    private UICommand mybutton;
+    
     public editProfileController(){
         if(userFacade == null) userFacade = new UserFacade();
         if(groupFacade == null) groupFacade = new GroupFacade();
@@ -72,12 +77,16 @@ public class editProfileController {
         getLoggedUser().setUserName(username);
         
         boolean isEdited = userFacade.edit(getLoggedUser());
-        
+        FacesContext context = FacesContext.getCurrentInstance();
         if(!isEdited)
         {
+            FacesMessage message = new FacesMessage("Un problème est survenu lors de la sauvegarde de votre profil.");
+            context.addMessage(getMybutton().getClientId(context), message);
             return null;
         }
-        return "connected_home?faces-redirect=true";
+        FacesMessage message = new FacesMessage("Votre profil a été sauvegardé.");
+        context.addMessage(getMybutton().getClientId(context), message);
+        return null;
         
     }
 
@@ -219,5 +228,19 @@ public class editProfileController {
      */
     public void setLoggedUser(UserEntity loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    /**
+     * @return the mybutton
+     */
+    public UICommand getMybutton() {
+        return mybutton;
+    }
+
+    /**
+     * @param mybutton the mybutton to set
+     */
+    public void setMybutton(UICommand mybutton) {
+        this.mybutton = mybutton;
     }
 }

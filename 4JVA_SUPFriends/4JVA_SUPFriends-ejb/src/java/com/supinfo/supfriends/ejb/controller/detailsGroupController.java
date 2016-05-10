@@ -10,6 +10,7 @@ import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +38,8 @@ public class detailsGroupController {
     @NotEmpty
     private List<UserEntity> listFriends;
     @NotEmpty
+    private List<UserEntity> listFriendsWithOwner;
+    @NotEmpty
     private GroupEntity group;
     @NotEmpty
     private Long currentUserId;
@@ -53,9 +56,14 @@ public class detailsGroupController {
         Long groupId = Long.valueOf(gpId);
         currentUserId = ServerConfig.GetUserId();
         group = groupFacade.find(groupId);
-        owner = userFacade.find(group.getId());
+        owner = userFacade.find(group.getOwnerId());
         listFriends = group.getListMembers();
+        listFriendsWithOwner = new ArrayList<UserEntity>(listFriends);
+        
         listFriendsDataModel = new ListDataModel<UserEntity>(listFriends);
+        // On ajoute l'owner pour la map
+        if(!listFriendsWithOwner.contains(owner))
+            listFriendsWithOwner.add(owner);
         
     }
 
@@ -125,6 +133,20 @@ public class detailsGroupController {
      */
     public void setOwner(UserEntity owner) {
         this.owner = owner;
+    }
+
+    /**
+     * @return the listFriendsWithOwner
+     */
+    public List<UserEntity> getListFriendsWithOwner() {
+        return listFriendsWithOwner;
+    }
+
+    /**
+     * @param listFriendsWithOwner the listFriendsWithOwner to set
+     */
+    public void setListFriendsWithOwner(List<UserEntity> listFriendsWithOwner) {
+        this.listFriendsWithOwner = listFriendsWithOwner;
     }
     
     
