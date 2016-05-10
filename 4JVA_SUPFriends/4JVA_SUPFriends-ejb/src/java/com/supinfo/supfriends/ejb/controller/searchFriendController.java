@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -33,19 +35,16 @@ public class searchFriendController {
     @EJB
     private static GroupFacade groupFacade;
     
-    @NotEmpty
+
     private List<UserEntity> listFriends;
-    @NotEmpty
+
     private DataModel<UserEntity> listFriendsDataModel;
-    @NotEmpty
     private String searchText;
-    @NotEmpty
     private String errorMessage;
     
-    @NotEmpty
+
     private Long groupId;
     
-    @NotEmpty
     private GroupEntity group;
     
 
@@ -56,7 +55,7 @@ public class searchFriendController {
         String gpId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("groupId");
         groupId = Long.valueOf(gpId);
         group = groupFacade.find(groupId);
-        setErrorMessage(null);
+        errorMessage = null;
     }
     
     public String searchFriendByPhoneNumber()
@@ -105,6 +104,7 @@ public class searchFriendController {
     setErrorMessage("L'ami portant le numéro " + friendToAdd.getPhoneNumber() + " a été ajouté au groupe "  + group.getName());
     listFriends = null;
     listFriendsDataModel = null;
+    
     return "searchFriend?faces-redirect=true";
        
        

@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="Templates/non_authenticated.xhtml">
+
+    <ui:define name="content">
+        <div class="bs-docs-header">
+                <div class="container">
+                <h1 style="color:white;">Bienvenue sur SupFriends</h1>
+                <p><a href="faces/login.xhtml" class="btn btn-info">Connectez-vous !</a><a href="faces/register.xhtml" class="btn btn-warning">Enregistrez-vous !</a></p>
+                </div>
+            </div>  
+        <div class="container">
+
+        <div class="row">
+            <div class="col-md-3 div-home" style="margin-left:7.5%">
+                <div style="height:55px;">
+                <h2 class="login-title" style="font-size: 25px;">Nombre de groupes actuels</h2>
+                </div>
+                <div class="circle">
+                    <div class="inner-circle">
+                        <h:outputText value="#{indexController.totalNbGroups}"/>
+                    </div>
+                </div>
+                <h2 class="login-title" style="font-size: 25px; margin-top: 10%; color: steelblue;">groupes</h2>
+            </div>
+              <div class="col-md-3 div-home-green" style="margin-left:5%">
+                <div style="height:55px;">
+                <h2 class="login-title" style="font-size: 25px;">Nombre de coordonnées actuelles</h2>
+                </div>
+                <div class="circle-green">
+                    <div class="inner-circle">
+                        <h:outputText value="#{indexController.totalNbCoordinates}"/>
+                    </div>
+                </div>
+                <h2 class="login-title" style="font-size: 25px; margin-top: 10%; color: #5cb85c;">coordonnées</h2>
+            </div>
+            <div class="col-md-3 div-home-orange" style="margin-left:5%">
+                <div style="height:55px; ">
+                <h2 class="login-title" style="font-size: 25px;">Nombre d'utilisateurs</h2>
+                </div>
+                <div class="circle-orange">
+                    <div class="inner-circle">
+                        <h:outputText value="#{indexController.totalNbUsers}"/>
+                    </div>
+                </div>
+                <h2 class="login-title" style="font-size: 25px; margin-top: 10%; color: orange;">utilisateurs</h2>
+            </div>
+        
+        </div>
+ </div>
+    </ui:define>
+</ui:composition>

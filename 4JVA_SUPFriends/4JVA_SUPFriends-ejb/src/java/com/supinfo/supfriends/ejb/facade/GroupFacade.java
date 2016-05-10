@@ -126,11 +126,11 @@ public class GroupFacade {
     }
 
     /**
-     * @return Nombre d'utilisateur dans la base de données
+     * @return Nombre de groupes dans la base de données
      */
     public int count() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        Root<GroupEntity> rt = cq.from(UserEntity.class);
+        Root<GroupEntity> rt = cq.from(GroupEntity.class);
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();

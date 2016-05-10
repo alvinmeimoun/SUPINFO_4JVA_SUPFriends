@@ -41,6 +41,9 @@ public class detailsGroupController {
     @NotEmpty
     private Long currentUserId;
     
+    @NotEmpty
+    private UserEntity owner;
+    
     public detailsGroupController()
     {
         if(userFacade == null) userFacade = new UserFacade();
@@ -50,6 +53,7 @@ public class detailsGroupController {
         Long groupId = Long.valueOf(gpId);
         currentUserId = ServerConfig.GetUserId();
         group = groupFacade.find(groupId);
+        owner = userFacade.find(group.getId());
         listFriends = group.getListMembers();
         listFriendsDataModel = new ListDataModel<UserEntity>(listFriends);
         
@@ -107,6 +111,20 @@ public class detailsGroupController {
      */
     public void setCurrentUserId(Long currentUserId) {
         this.currentUserId = currentUserId;
+    }
+
+    /**
+     * @return the owner
+     */
+    public UserEntity getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner the owner to set
+     */
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
     }
     
     

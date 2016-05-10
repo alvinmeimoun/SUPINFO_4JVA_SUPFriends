@@ -29,8 +29,8 @@
                     <f:facet name="header">
                         <h:outputText value="Actions"/>
                     </f:facet>
-                    <a href="detailsGroup.xhtml?groupId=#{group.id}">Voir</a> |
-                    <a href="searchFriend.xhtml?groupId=#{group.id}">Ajouter un ami</a> |
+                    <a   href="detailsGroup.xhtml?groupId=#{group.id}">Voir</a> |
+                    <a href="searchFriend.xhtml?groupId=#{group.id}">Ajouter un ami</a> 
                     
                     <h:form rendered="#{group.ownerId eq listGroupController.currentUser.id}">
                         <h:commandLink value="Supprimer le groupe" action="#{listGroupController.remove()}" />

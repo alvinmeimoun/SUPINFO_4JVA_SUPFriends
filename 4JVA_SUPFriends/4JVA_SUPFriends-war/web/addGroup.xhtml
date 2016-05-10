@@ -8,13 +8,17 @@
     </ui:define>
     
     <ui:define name="content">
+        <div class="col-md-3"></div>
         <h:form>
+            <div class="form-group col-md-3">
             <h:outputLabel for="groupName" value="Nom du groupe :"/>
-            <h:inputText id="groupName" value="#{addGroupController.groupName}" />
-
-
-            <h:commandButton value="Register" action="#{addGroupController.addGroup()}" />
+            <h:inputText id="groupName" class="form-control" value="#{addGroupController.groupName}" />
+            <br/>
+            <h:commandButton value="Ajouter le groupe" class="btn btn-primary" action="#{addGroupController.addGroup()}" />
+            
+            </div>
         </h:form>
+        <div class="col-md-3"></div>
 
     </ui:define>
 </ui:composition>

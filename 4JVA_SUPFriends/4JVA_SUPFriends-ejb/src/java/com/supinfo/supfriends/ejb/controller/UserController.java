@@ -122,15 +122,17 @@ public class UserController {
         loggedUser = userFacade.login(username, password);
         
         if(null == loggedUser) {
+            errorMessage = "Le nom d'utilisateur ou le mot de passe est incorrect.";
             return null;
         }
         
         username = null;
         password = null;
-           HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-           //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", loggedUser.getUserName());
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", loggedUser.getId());
+        errorMessage = null;    
+        HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", loggedUser.getUserName());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", loggedUser.getId());
             return "connected_home?faces-redirect=true";       
     }
     

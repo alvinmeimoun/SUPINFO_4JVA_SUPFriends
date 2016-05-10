@@ -5,24 +5,33 @@
                 template="Templates/authenticated_home.xhtml">
 
     <ui:define name="title">
+    
         <h:outputText value="Rechercher un ami"/>
     </ui:define>
-    
+    <br/>
+    <br/>
+
     <ui:define name="content">
+       <h:form rendered="#{not empty searchFriendController.errorMessage}"  >
+             <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">X</button>
+               <h:outputText   style="margin-bottom: 20px;"  id="message"  value="#{searchFriendController.errorMessage}" />
+
+            </div>
+        </h:form>
         <h:form>
-            <h:outputText id="message"  value="#{searchFriendController.errorMessage}" />
-            <br/>
             <h:outputLabel for="groupName" value="Numéro de telephone :"/>
             <h:inputText id="groupName" maxlength="10" value="#{searchFriendController.searchText}" />
 
 
-            <h:commandButton value="Rechercher" action="#{searchFriendController.searchFriendByPhoneNumber()}" />
+            <h:commandButton class="btn btn-primary" value="Rechercher" action="#{searchFriendController.searchFriendByPhoneNumber()}" />
             <br/>
            
           </h:form>
             <br/>
           <h:form>
-            <h:dataTable class="table table-bordered" value="#{searchFriendController.listFriendsDataModel}" var="user">
+            <h3>Liste des résultats trouvés</h3>
+            <h:dataTable class="table table-bordered" rendered="#{not empty searchFriendController.listFriendsDataModel}" value="#{searchFriendController.listFriendsDataModel}" var="user">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="User Id"/>
