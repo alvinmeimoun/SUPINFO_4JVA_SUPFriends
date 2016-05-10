@@ -34,4 +34,10 @@
     <managed-bean-class>com.supinfo.supfriends.ejb.controller.detailsGroupController</managed-bean-class>
     <managed-bean-scope>view</managed-bean-scope>
 </managed-bean>
+
+<managed-bean>
+    <managed-bean-name>indexController</managed-bean-name>
+    <managed-bean-class>com.supinfo.supfriends.ejb.controller.indexController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+</managed-bean>
 </faces-config>

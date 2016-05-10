@@ -6,6 +6,7 @@
 package com.supinfo.supfriends.web.servlet;
 
 import java.io.IOException;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         request.getSession().removeAttribute("username");
         request.getSession().removeAttribute("id");
-        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         response.sendRedirect("http://localhost:8080/4JVA_SUPFriends-war/faces/login.xhtml");
     }
 

@@ -5,13 +5,14 @@
                 template="Templates/authenticated_home.xhtml">
 
     <ui:define name="title">
-        <h:outputText value="Mes groupes"/>
+        <h:outputText value="Group #{detailsGroupController.group.name}"/>
     </ui:define>
     
     <ui:define name="content">
         
-        <h:outputLabel for="groupName" value="Nom du groupe :"/>
-        <h:outputText id="groupName" value="#{detailsGroupController.group.name}"></h:outputText>
+        
+        <h:outputLabel for="groupName" value="Créateur du groupe :"/>
+        <h:outputText id="groupName" value="#{detailsGroupController.owner.userName}"></h:outputText>
        
         <h:dataTable class="table table-bordered" value="#{detailsGroupController.listFriendsDataModel}" var="member">
                 <h:column>
@@ -43,9 +44,13 @@
                     <f:facet name="header">
                         <h:outputText value="Actions"/>
                     </f:facet>
-                    <h:form rendered="#{member.id eq detailsGroupController.currentUserId || detailsGroupController.group.ownerId eq detailsGroupController.currentUserId}" >
+                    <h:form rendered="#{detailsGroupController.group.ownerId eq detailsGroupController.currentUserId}" >
                     <h:commandLink value="Supprimer" action="#{detailsGroupController.removeUserFromGroup()}"/>
                    </h:form>
+                   <h:form rendered="#{member.id eq detailsGroupController.currentUserId}" >
+                    <h:commandLink value="Se desinscrire" action="#{detailsGroupController.removeUserFromGroup()}"/>
+                   </h:form>
+                    
                 </h:column>
             </h:dataTable>
 

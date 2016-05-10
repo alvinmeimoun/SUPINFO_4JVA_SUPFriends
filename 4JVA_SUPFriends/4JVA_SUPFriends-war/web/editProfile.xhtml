@@ -43,7 +43,7 @@
             <h:inputText required="true" class="form-control" id="longitude" value="#{editProfileController.longitude}" />
             </div>
 
-            <h:commandButton value="Register" action="#{editProfileController.saveChanges()}" />
+            <h:commandButton class="btn btn-primary" value="Modifier mon profil" action="#{editProfileController.saveChanges()}" />
             <h:outputText id="message"  value="#{editProfileController.errorMessage}" />
         </h:form>
 </div>
