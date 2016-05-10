@@ -10,6 +10,7 @@ import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -52,7 +53,7 @@ public class listGroupController {
     {
 
             Long userId = ServerConfig.GetUserId();
-            listGroups = groupFacade.findByUserId(userId);
+            listGroups = new ArrayList<>();
             currentUser = userFacade.find(userId);
             if(currentUser.getGroups().size() > 0)
             {
