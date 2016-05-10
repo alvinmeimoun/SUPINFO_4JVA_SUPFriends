@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Mar 10 Mai 2016 à 11:16
+-- Généré le :  Mar 10 Mai 2016 à 15:26
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -77,8 +77,8 @@ CREATE TABLE `USER` (
 --
 
 INSERT INTO `USER` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `LATITUDE`, `LONGITUDE`, `PASSWORD`, `PHONENUMBER`, `USERNAME`) VALUES
-(1, 'test@test.com', 'test', 'test', 1, 2, 'test', '0660269050', 'test'),
-(2, 'test2@test.com', 'Test 2', 'Test', 4, 6, 'test', '0660269050', 'test2');
+(1, 'test@test.com', 'test', 'test', 43.696, 7.2656, 'test', '0660269050', 'test'),
+(2, 'test2@test.com', 'Test 2', 'Test', 43.671, 7.1761, 'test', '0660269050', 'test2');
 
 --
 -- Index pour les tables exportées
@@ -127,4 +127,3 @@ ALTER TABLE `USER`
 ALTER TABLE `GROUPE_MEMBERS`
   ADD CONSTRAINT `FK_GROUPE_MEMBERS_GroupId` FOREIGN KEY (`GroupId`) REFERENCES `GROUPE` (`ID`),
   ADD CONSTRAINT `FK_GROUPE_MEMBERS_UserId` FOREIGN KEY (`UserId`) REFERENCES `USER` (`ID`);
-
