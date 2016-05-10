@@ -5,6 +5,7 @@
  */
 package com.supinfo.supfriends.web.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,11 @@ public class GetPositionModel {
     private GroupModel group;
     
     private List<UserModel> positions;
+    
+    public GetPositionModel(){
+        positions = new ArrayList<>();
+        group = new GroupModel();
+    }
 
     public GroupModel getGroup() {
         return group;

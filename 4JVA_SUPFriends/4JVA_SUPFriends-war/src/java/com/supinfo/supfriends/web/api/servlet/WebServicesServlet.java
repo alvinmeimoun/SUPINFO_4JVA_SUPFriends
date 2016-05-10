@@ -11,8 +11,10 @@ import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
 import com.supinfo.supfriends.web.api.model.ApiResponseMessageModel;
+import com.supinfo.supfriends.web.api.model.GetPositionModel;
 import com.supinfo.supfriends.web.api.model.GroupModel;
 import com.supinfo.supfriends.web.api.model.ListGroupModel;
+import com.supinfo.supfriends.web.api.model.UserModel;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -51,7 +53,10 @@ public class WebServicesServlet extends HttpServlet {
                 break;
             case "listGroups":
                 responseJson = listGroups();
-                
+                break;
+            case "getPosition":
+                String groupId = req.getParameter("groupID");
+                responseJson = getPosition(groupId);
                 break;
         }
         
@@ -84,6 +89,30 @@ public class WebServicesServlet extends HttpServlet {
         userFacade.edit(user);
                 
         return new Gson().toJson(new ApiResponseMessageModel().setSuccess(true));
+    }
+    
+    private String getPosition(String groupId){
+        GroupEntity group = groupFacade.find(Long.valueOf(groupId));
+        List<UserEntity> users = group.getListMembers();
+        
+        GetPositionModel model = new GetPositionModel();
+        
+        model.getGroup().setId(group.getId());
+        model.getGroup().setName(group.getName());
+        
+        for(UserEntity user : users){
+            UserModel userModel = new UserModel();
+            
+            userModel.setFirstName(user.getFirstName());
+            userModel.setLastName(user.getLastName());
+            userModel.setLatitude(user.getLatitude());
+            userModel.setLongitude(user.getLongitude());
+            userModel.setUserId(user.getId());
+            
+            model.getPositions().add(userModel);
+        }
+        
+        return new Gson().toJson(model);
     }
     
 }
