@@ -42,6 +42,18 @@ public class WebServicesServlet extends HttpServlet {
         String password = req.getParameter("password");
         String responseJson = "";
         
+        UserEntity user = userFacade.findByUsername(username);
+        if(user == null){
+            resp.setStatus(403);
+            resp.getWriter().println(String.format("User %s doesn't exists", username));
+            return;
+        }
+        if(!user.getPassword().equals(password)){
+            resp.setStatus(401);
+            resp.getWriter().println("Wrong password");
+            return;
+        }
+        
         switch(action){
             case "update":
                 String latitude, longitude;
