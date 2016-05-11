@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Mer 11 Mai 2016 à 10:52
+-- Généré le :  Mer 11 Mai 2016 à 14:15
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -32,14 +32,14 @@ CREATE TABLE `GROUPE` (
   `ID` bigint(20) NOT NULL,
   `NAME` varchar(255) DEFAULT NULL,
   `OWNERID` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `GROUPE`
 --
 
 INSERT INTO `GROUPE` (`ID`, `NAME`, `OWNERID`) VALUES
-(1, 'Groupe Test', 1);
+(1, 'SUPINFO Nice', 1);
 
 -- --------------------------------------------------------
 
@@ -76,16 +76,15 @@ CREATE TABLE `USER` (
   `PASSWORD` varchar(255) DEFAULT NULL,
   `PHONENUMBER` varchar(255) DEFAULT NULL,
   `USERNAME` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `USER`
 --
 
 INSERT INTO `USER` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `LATITUDE`, `LONGITUDE`, `PASSWORD`, `PHONENUMBER`, `USERNAME`) VALUES
-(1, 'test@test.com', 'test', 'test', 43.696, 7.2656, 'test', '0600000001', 'test'),
-(2, 'test2@test.com', 'Test 2', 'Test', 43.671, 7.1761, 'test', '0600000002', 'test2'),
-(3, 'test3@test.com', 'Test 3', 'Test', 5, 6, 'test', '0600000003', 'test3');
+(1, 'alvin.meimoun@supinfo.com', 'Alvin', 'Meimoun', 43.696, 7.2656, 'test', '0600000001', 'alvin'),
+(2, 'antonin.malfatti@supinfo.com', 'Antonin', 'Malfatti', 43.671, 7.1761, 'test', '0600000002', 'antonin');
 
 --
 -- Index pour les tables exportées
@@ -118,12 +117,12 @@ ALTER TABLE `USER`
 -- AUTO_INCREMENT pour la table `GROUPE`
 --
 ALTER TABLE `GROUPE`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `USER`
 --
 ALTER TABLE `USER`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Contraintes pour les tables exportées
 --

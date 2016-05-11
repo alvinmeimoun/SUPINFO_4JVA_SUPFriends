@@ -21,3 +21,7 @@ WebServices :
 Les webservices respectent la documetation fournie dans le sujet
 
 Il est également possible de les tester en important le collection POSTMAN fournie dans le dossier Documents
+
+
+
+Le diagramme de base de données se situe dans le dossier Documents
