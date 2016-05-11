@@ -16,7 +16,8 @@ public class ServerConfig {
     /**
      * URL de base de l'application
      */
-    public static final  String BASE_URL = "http://localhost:8080/4JVA_SUPFriends-war";
+    public static final String BASE_URL = "http://localhost:8080/4JVA_SUPFriends-war";
+    public static final String CONTEXT_URL = "/4JVA_SUPFriends-war";
     
     public static Map<String,Object> GetSessionContext()
     {

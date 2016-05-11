@@ -37,4 +37,13 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <filter>
+        <filter-name>ProtectorFilter</filter-name>
+        <filter-class>com.supinfo.supfriends.web.filter.ProtectorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ProtectorFilter</filter-name>
+        <url-pattern>/faces/*</url-pattern>
+    </filter-mapping>
 </web-app>

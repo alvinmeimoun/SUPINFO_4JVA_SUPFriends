@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -130,6 +131,13 @@ public class UserController {
         //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", loggedUser.getUserName());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", loggedUser.getId());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
+                "password", DigestUtils.sha256Hex(loggedUser.getPassword()));
+        
+        req.getSession().setAttribute("username", loggedUser.getUserName());
+        req.getSession().setAttribute("id", loggedUser.getId());
+        req.getSession().setAttribute("password", DigestUtils.sha256Hex(loggedUser.getPassword()));
+        
             return "connected_home?faces-redirect=true";       
     }
     
@@ -161,10 +169,17 @@ public class UserController {
             return null;
        }
        else {
-           //HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+           HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
            //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUserName());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", user.getId());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
+                "password", DigestUtils.sha256Hex(user.getPassword()));
+            
+            req.getSession().setAttribute("username", user.getUserName());
+            req.getSession().setAttribute("id", user.getId());
+            req.getSession().setAttribute("password", DigestUtils.sha256Hex(loggedUser.getPassword()));
+            
             return "connected_home?faces-redirect=true";      
        }
     }
