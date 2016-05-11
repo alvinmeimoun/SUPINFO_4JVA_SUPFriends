@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Mar 10 Mai 2016 à 15:26
+-- Généré le :  Mer 11 Mai 2016 à 10:52
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données :  `supfriends`
@@ -70,15 +76,16 @@ CREATE TABLE `USER` (
   `PASSWORD` varchar(255) DEFAULT NULL,
   `PHONENUMBER` varchar(255) DEFAULT NULL,
   `USERNAME` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `USER`
 --
 
 INSERT INTO `USER` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `LATITUDE`, `LONGITUDE`, `PASSWORD`, `PHONENUMBER`, `USERNAME`) VALUES
-(1, 'test@test.com', 'test', 'test', 43.696, 7.2656, 'test', '0660269050', 'test'),
-(2, 'test2@test.com', 'Test 2', 'Test', 43.671, 7.1761, 'test', '0660269050', 'test2');
+(1, 'test@test.com', 'test', 'test', 43.696, 7.2656, 'test', '0600000001', 'test'),
+(2, 'test2@test.com', 'Test 2', 'Test', 43.671, 7.1761, 'test', '0600000002', 'test2'),
+(3, 'test3@test.com', 'Test 3', 'Test', 5, 6, 'test', '0600000003', 'test3');
 
 --
 -- Index pour les tables exportées
@@ -116,7 +123,7 @@ ALTER TABLE `GROUPE`
 -- AUTO_INCREMENT pour la table `USER`
 --
 ALTER TABLE `USER`
-  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Contraintes pour les tables exportées
 --
@@ -127,3 +134,7 @@ ALTER TABLE `USER`
 ALTER TABLE `GROUPE_MEMBERS`
   ADD CONSTRAINT `FK_GROUPE_MEMBERS_GroupId` FOREIGN KEY (`GroupId`) REFERENCES `GROUPE` (`ID`),
   ADD CONSTRAINT `FK_GROUPE_MEMBERS_UserId` FOREIGN KEY (`UserId`) REFERENCES `USER` (`ID`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
