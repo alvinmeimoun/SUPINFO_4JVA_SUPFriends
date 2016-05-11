@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
@@ -42,9 +43,10 @@ public class GroupFacade {
    
     public void create(GroupEntity groupEntity) {
         try{
-        em.getTransaction().begin();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         em.persist(groupEntity);
-        em.getTransaction().commit();
+        tx.commit();
         }
         catch(Exception e)
         {
@@ -55,9 +57,10 @@ public class GroupFacade {
 
     public void edit(GroupEntity groupEntity) {
         try{
-            em.getTransaction().begin();
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
             em.merge(groupEntity);
-            em.getTransaction().commit();
+            tx.commit();
             em.refresh(groupEntity);
         }
         catch(Exception e)

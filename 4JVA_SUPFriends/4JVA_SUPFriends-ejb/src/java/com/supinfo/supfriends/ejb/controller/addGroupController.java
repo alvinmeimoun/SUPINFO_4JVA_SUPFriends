@@ -51,7 +51,7 @@ public class addGroupController {
     {
         GroupEntity group = new GroupEntity();
         group.setName(groupName);
-        Long id = Long.valueOf( FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id").toString());
+        Long id = ServerConfig.GetUserId();
         group.setOwnerId(id);
         
         groupFacade.create(group);
