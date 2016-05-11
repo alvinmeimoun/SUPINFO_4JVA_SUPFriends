@@ -10,7 +10,10 @@ import com.supinfo.supfriends.ejb.entity.GroupEntity;
 import com.supinfo.supfriends.ejb.entity.UserEntity;
 import com.supinfo.supfriends.ejb.facade.GroupFacade;
 import com.supinfo.supfriends.ejb.facade.UserFacade;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -26,9 +29,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class listGroupController {
  
     @EJB
-    private static UserFacade userFacade;
+    private UserFacade userFacade;
     @EJB
-    private static GroupFacade groupFacade;
+    private GroupFacade groupFacade;
     
     @NotEmpty
     private List<GroupEntity> listGroups;
@@ -42,6 +45,7 @@ public class listGroupController {
     
     public listGroupController()
     {
+        listGroups = new ArrayList<>();
         if(userFacade == null) userFacade = new UserFacade();
         if(groupFacade == null) groupFacade = new GroupFacade();
         
@@ -50,15 +54,19 @@ public class listGroupController {
     
     public void initDatas()
     {
-
+            Set listGroupsTemp = new HashSet<>();
             Long userId = ServerConfig.GetUserId();
-            listGroups = groupFacade.findByUserId(userId);
+            listGroupsTemp.clear();
+            listGroupsTemp.addAll(groupFacade.findByUserId(userId));
             currentUser = userFacade.find(userId);
             if(currentUser.getGroups().size() > 0)
             {
-                listGroups.addAll(currentUser.getGroups());
+                listGroupsTemp.addAll(currentUser.getGroups());
             }
-            setListGroupsDataModel(new ListDataModel<GroupEntity>(listGroups));
+            
+            listGroups.clear();
+            listGroups.addAll(listGroupsTemp);
+            setListGroupsDataModel(new ListDataModel<>(listGroups));
         
     }
 

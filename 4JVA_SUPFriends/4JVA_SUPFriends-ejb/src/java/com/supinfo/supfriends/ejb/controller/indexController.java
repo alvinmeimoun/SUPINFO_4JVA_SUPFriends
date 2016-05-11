@@ -24,9 +24,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class indexController {
     
     @EJB
-    private static UserFacade userFacade;
+    private UserFacade userFacade;
     @EJB
-    private static GroupFacade groupFacade;
+    private GroupFacade groupFacade;
     
     private int totalNbGroups;
     private int totalNbUsers;

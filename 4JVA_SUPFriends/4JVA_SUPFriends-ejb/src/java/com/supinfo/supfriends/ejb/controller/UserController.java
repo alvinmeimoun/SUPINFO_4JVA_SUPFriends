@@ -36,15 +36,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserController {
     
     @EJB
-    private static UserFacade userFacade;
+    private UserFacade userFacade;
     @EJB
-    private static GroupFacade groupFacade;
-    
-    @EJB
-    private UserFacade userFacedeEjb;
-    
-    @EJB
-    private GroupFacade groupFacadeEjb;
+    private GroupFacade groupFacade;
     
     @NotEmpty
     private String username;

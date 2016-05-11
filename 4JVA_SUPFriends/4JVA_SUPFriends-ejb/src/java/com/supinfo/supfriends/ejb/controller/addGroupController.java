@@ -30,9 +30,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SessionScoped
 public class addGroupController {
     @EJB
-    private static UserFacade userFacade;
+    private UserFacade userFacade;
     @EJB
-    private static GroupFacade groupFacade;
+    private GroupFacade groupFacade;
     
     @NotEmpty
     private String groupName;
