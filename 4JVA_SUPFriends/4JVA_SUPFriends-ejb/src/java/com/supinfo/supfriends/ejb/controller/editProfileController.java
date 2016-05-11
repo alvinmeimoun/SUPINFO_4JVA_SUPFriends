@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UICommand;
 import javax.faces.context.FacesContext;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -22,7 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Antonin
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class editProfileController {
     
     @EJB
