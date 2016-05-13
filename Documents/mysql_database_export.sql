@@ -83,8 +83,8 @@ CREATE TABLE `USER` (
 --
 
 INSERT INTO `USER` (`ID`, `EMAIL`, `FIRSTNAME`, `LASTNAME`, `LATITUDE`, `LONGITUDE`, `PASSWORD`, `PHONENUMBER`, `USERNAME`) VALUES
-(1, 'alvin.meimoun@supinfo.com', 'Alvin', 'Meimoun', 43.696, 7.2656, 'test', '0600000001', 'alvin'),
-(2, 'antonin.malfatti@supinfo.com', 'Antonin', 'Malfatti', 43.671, 7.1761, 'test', '0600000002', 'antonin');
+(1, 'alvin.meimoun@supinfo.com', 'Alvin', 'Meimoun', 43.696, 7.2656, '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '0600000001', 'alvin'),
+(2, 'antonin.malfatti@supinfo.com', 'Antonin', 'Malfatti', 43.671, 7.1761, '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '0600000002', 'antonin');
 
 --
 -- Index pour les tables exportées

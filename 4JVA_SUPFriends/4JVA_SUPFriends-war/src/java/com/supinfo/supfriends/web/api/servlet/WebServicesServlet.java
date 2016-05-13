@@ -22,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -40,6 +41,7 @@ public class WebServicesServlet extends HttpServlet {
         String action = req.getParameter("action");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String encodedPassword = DigestUtils.sha256Hex(password);
         String responseJson = "";
         
         UserEntity user = userFacade.findByUsername(username);
@@ -48,7 +50,7 @@ public class WebServicesServlet extends HttpServlet {
             resp.getWriter().println(String.format("User %s doesn't exists", username));
             return;
         }
-        if(!user.getPassword().equals(password)){
+        if(!user.getPassword().equals(encodedPassword)){
             resp.setStatus(401);
             resp.getWriter().println("Wrong password");
             return;
