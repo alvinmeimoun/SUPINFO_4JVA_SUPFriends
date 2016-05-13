@@ -61,7 +61,7 @@ public class ProtectorFilter implements Filter {
                 && session.getAttribute("password") != null) {
             UserEntity user = userFacade.find((Long) session.getAttribute("id"));
             if (user != null) {
-                if (DigestUtils.sha256Hex(user.getPassword()).equals(session.getAttribute("password"))) {
+                if (user.getPassword().equals(session.getAttribute("password"))) {
                     validCredentials = true;
                 }
             }

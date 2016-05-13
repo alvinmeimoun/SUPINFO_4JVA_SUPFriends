@@ -117,7 +117,9 @@ public class UserController {
      }
     
     public String login() {
-        loggedUser = userFacade.login(username, password);
+        
+        String passwordCrypted = DigestUtils.sha256Hex(password);
+        loggedUser = userFacade.login(username, passwordCrypted);
         
         if(null == loggedUser) {
             errorMessage = "Le nom d'utilisateur ou le mot de passe est incorrect.";
@@ -132,11 +134,11 @@ public class UserController {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", loggedUser.getUserName());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", loggedUser.getId());
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
-                "password", DigestUtils.sha256Hex(loggedUser.getPassword()));
+                "password", passwordCrypted);
         
         req.getSession().setAttribute("username", loggedUser.getUserName());
         req.getSession().setAttribute("id", loggedUser.getId());
-        req.getSession().setAttribute("password", DigestUtils.sha256Hex(loggedUser.getPassword()));
+        req.getSession().setAttribute("password", passwordCrypted);
         
             return "connected_home?faces-redirect=true";       
     }
@@ -152,7 +154,8 @@ public class UserController {
         }
        UserEntity user = new UserEntity();
        user.setUserName(username);
-       user.setPassword(password);
+       String passwordCrypted = DigestUtils.sha256Hex(password);
+       user.setPassword(passwordCrypted);
        user.setFirstName(firstname);
        user.setLastName(lastname);
        user.setEmail(email);
@@ -169,16 +172,14 @@ public class UserController {
             return null;
        }
        else {
-           HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-           //HttpServletResponse res = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUserName());
+            HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user.getUserName());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", user.getId());
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
-                "password", DigestUtils.sha256Hex(user.getPassword()));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("password", passwordCrypted);
             
             req.getSession().setAttribute("username", user.getUserName());
             req.getSession().setAttribute("id", user.getId());
-            req.getSession().setAttribute("password", DigestUtils.sha256Hex(loggedUser.getPassword()));
+            req.getSession().setAttribute("password", passwordCrypted);
             
             return "connected_home?faces-redirect=true";      
        }

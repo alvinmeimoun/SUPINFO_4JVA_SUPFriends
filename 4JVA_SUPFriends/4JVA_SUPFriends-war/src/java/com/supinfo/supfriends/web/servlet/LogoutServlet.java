@@ -24,8 +24,9 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getSession().removeAttribute("username");
+        request.getSession().removeAttribute("password");
         request.getSession().removeAttribute("id");
-        response.sendRedirect("http://localhost:8080/4JVA_SUPFriends-war/faces/login.xhtml");
+        response.sendRedirect("http://localhost:8080/4JVA_SUPFriends-war/faces/index.xhtml");
     }
 
     /**

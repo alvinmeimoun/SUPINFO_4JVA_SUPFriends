@@ -16,6 +16,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UICommand;
 import javax.faces.context.FacesContext;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -73,7 +74,8 @@ public class editProfileController {
         getLoggedUser().setEmail(email);
         getLoggedUser().setLatitude(Double.valueOf(latitude));
         getLoggedUser().setLongitude(Double.valueOf(longitude));
-        getLoggedUser().setPassword(password);
+        String passwordCrypted = DigestUtils.sha256Hex(password);
+        getLoggedUser().setPassword(passwordCrypted);
         getLoggedUser().setPhoneNumber(phonenumber);
         getLoggedUser().setUserName(username);
         
